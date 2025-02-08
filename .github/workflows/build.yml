@@ -19,11 +19,14 @@ jobs:
         run: |
           nuget install Microsoft.Windows.SDK.BuildTools -Version 10.0.22621.3233 -x
           nuget install Microsoft.Trusted.Signing.Client -Version 1.0.53 -x
+          dir
       - name: Sign Exec
         shell: cmd
         run: |
           cd platform\windows
+          dir
           Build.Tools\CoronaLabsInc.Sign.bat "Bin\Corona Simulator.exe"
+          dir
         env:
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
