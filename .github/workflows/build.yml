@@ -25,7 +25,7 @@ jobs:
         run: |
           cd platform\windows
           dir
-          Build.Tools\CoronaLabsInc.Sign.bat "Bin\Corona Simulator.exe"
+          Build.Tools\CoronaLabsInc.Sign.bat "Bin/Corona Simulator.exe"
           dir
         env:
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
