@@ -1,0 +1,35 @@
+name: Test Signing
+
+on:
+  push:
+
+env:
+  WORKSPACE: ${{ github.workspace }}
+
+jobs:
+  build:
+    runs-on: windows-2019
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Code signing
+        shell: cmd
+        run: |
+          nuget install Microsoft.Windows.SDK.BuildTools -Version 10.0.22621.3233 -x
+          nuget install Microsoft.Trusted.Signing.Client -Version 1.0.53 -x
+      - name: Sign Exec
+        shell: cmd
+        run: |
+          cd platform\windows
+          Build.Tools\CoronaLabsInc.Sign.bat "Bin\Corona Simulator.exe"
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      - name: Upload Result
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sim
+          path: platform\windows\Bin\Corona Simulator.exe
