@@ -17,10 +17,10 @@ jobs:
       - name: Setup Code signing
         shell: cmd
         run: |
-          choco install dotnet-8.0-runtime
+          choco install dotnet-8.0-runtime --no-progress
           nuget install Microsoft.Windows.SDK.BuildTools -Version 10.0.22621.3233 -x
           nuget install Microsoft.Trusted.Signing.Client -Version 1.0.53 -x
-          dir
+          exit 1
       - name: Sign Exec
         shell: cmd
         run: |
